@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h2> Fornecedores  cadastrados</h2>
+            <br/>
+            <h:form>            
+                <p:dataTable value="#{fornecedorControle.listaFornecedor}" var="forn"
+                             emptyMessage="Nenhum Fornecedor cadastrado!"
+                             paginator="true" rows="10"
+                             rowsPerPageTemplate="5,10,50,100,{ShowAll|'All'}"
+                             paginatorPosition="bottom">
+                     
+                    <p:column headerText="CNPJ">
+                        <h:outputText value="#{forn.cnpj}"/>
+                    </p:column>
+                     <p:column headerText="Nome Fantasia" >
+                         <h:outputText value="#{forn.nomeFantasia}"/>
+                    </p:column>
+                    <p:column headerText="e-mail" >
+                        <h:outputText value="#{forn.email}"/>
+                    </p:column>
+                    <p:column headerText="Telefone" >
+                        <h:outputText value="#{forn.telefone}"/>
+                    </p:column>
+                   
+                    <p:column headerText="Operações" style="display: flex; flex-direction: row; gap: 5px; justify-content: space-between">
+                        <p:commandButton value="excluir" 
+                                         action="#{fornecedorControle.excluir(forn)}"
+                                         ajax="false"
+                                         immediate="true"
+                                         icon="pi pi-trash" style="background-color: #fc2929; padding:1px 10px;"/>
+                        <p:commandButton value="Editar" 
+                                         action="cadastrarFornecedor.xhtml"
+                                         actionListener="#{fornecedorControle.editar(forn)}"
+                                         icon="pi pi-pencil"
+                                         ajax="false"
+                                         immediate="true"
+                                         style=" padding:1px 10px;"/>
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Novo fornecedor" action="cadastrarFornecedor.xhtml" 
+                                 actionListener="#{fornecedorControle.novo()}"
+                                 ajax="false"/>
+            </h:form>
+        </ui:define>        
+    </ui:composition>
+</html>

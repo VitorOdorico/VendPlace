@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+           
+            <div style="align-items: center; display: flex;flex-direction: column;justify-content: center;">
+                <h2>Cadastro de usuarios</h2>
+                <br/>
+                <p>Cadastrar os usuários para utilização do sistema aqui!</p>
+                <h:form >
+                    
+                    <p:messages showDetail="true"/>
+                <p:growl />
+                <h:panelGrid columns="2">
+                    
+                    <h5><p:outputLabel for="@next" value=" Nome completo"/></h5>
+                    <p:inputText value="#{usuariosControle.usuario.nomeCompleto}"
+                                 size="40"
+                                 required="true"
+                                 requiredMessage="O nome é orbrigatório!"/>
+                    
+                    <h5><p:outputLabel for="@next" value=" CPF/CNI"/></h5>
+                    <p:inputMask id="cpfCni" 
+                                 value="#{usuariosControle.usuario.cpfCni}" 
+                                 mask="999.999.999-99"
+                                 required="true" 
+                                 requiredMessage="O CPF é obrigatório!"
+                                 size="40" />
+                    
+                    <h5><p:outputLabel for="@next" value="E-mail"/></h5>
+                    <p:inputText value="#{usuariosControle.usuario.email}"
+                                 size="40"
+                                 required="true"
+                                 requiredMessage="O CPF/CNPJ é orbrigatório!"
+                                 type="email"/>
+
+                    <h5><p:outputLabel for="@next" value="Telefone"/></h5>
+                    <p:inputMask value="#{usuariosControle.usuario.telefone}" 
+                                 mask="(99) 99999-9999" 
+                                 validateMask="true"  
+                                 size="40"/>
+                    
+                    <h5><p:outputLabel for="@next" value="Nome de usuario"/></h5>
+                    <p:inputText value="#{usuariosControle.usuario.nomeUsuario}" 
+                                 required="true" 
+                                 size="40"/>
+                    
+                    <h5><p:outputLabel for="@next" value="Senha"/></h5>
+                    <p:password  value="#{usuariosControle.usuario.senha}" 
+                                 feedback="true" 
+                                 inline="true" 
+                                 size="40" 
+                                 required="true"/>
+                    
+                   
+                    
+                </h:panelGrid>        
+
+
+               
+                <div style="text-align: center">
+                    <p:commandButton value="Cadastrar" 
+                 actionListener="#{usuariosControle.salvar}"
+                 ajax="false"
+                 styleClass="ui-button-raised ui-button-flat" />
+
+                </div>
+               
+
+
+            </h:form>
+            </div>
+        </ui:define>        
+    </ui:composition>
+</html>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+           
+            <div style="align-items: center; display: flex;flex-direction: column;justify-content: center;">
+                <h2>Cadastro de categoria</h2>
+                <br/>
+                
+                <h:form >
+                    
+                    <p:messages showDetail="true"/>
+                <p:growl />
+                <h:panelGrid columns="2">
+                    
+                    <h5><p:outputLabel for="@next" value=" nome"/></h5>
+                    <p:inputText value="#{categoriaControle.categoria.nome}"
+                                 size="40"
+                                 required="true"
+                                 requiredMessage="O nome é orbrigatório!"/>
+                    
+                    <h5><p:outputLabel for="@next" value=" descrição"/></h5>
+                    <p:inputText value="#{categoriaControle.categoria.descricao}"
+                                 size="40"
+                                 required="false"/>
+                </h:panelGrid>        
+
+
+               
+                <div style="text-align: center">
+                    <p:commandButton value="Cadastrar" 
+                                     actionListener="#{categoriaControle.salvar}"
+                 ajax="false"
+                 styleClass="ui-button-raised ui-button-flat" />
+
+                </div>
+               
+
+
+            </h:form>
+            </div>
+        </ui:define>        
+    </ui:composition>
+</html>

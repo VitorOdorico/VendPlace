@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h2>Usuários</h2>
+            <br/>
+            <h:form>            
+                <p:dataTable value="#{clienteControle.listaClientes}" var="cli"
+                             emptyMessage="Nenhum cliente cadastrado!"
+                             paginator="true" rows="10"
+                             rowsPerPageTemplate="5,10,50,100,{ShowAll|'All'}">
+                    <p:column headerText="Nome" filterBy="${cli.nome}" filterMatchMode="contains"
+                              sortBy="#{cli.nome}">
+                        <h:outputText value="#{cli.nome}"/>
+                    </p:column>
+                    <p:column headerText="CPF / CNPJ" filterBy="${cli.cpfCnpj}" filterMatchMode="contains"
+                              sortBy="#{cli.cpfCnpj}">
+                        <h:outputText value="#{cli.cpfCnpj}"/>
+                    </p:column>
+                    <p:column headerText="RG / I.E." filterBy="${cli.rgIe}" filterMatchMode="contains"
+                              sortBy="#{cli.rgIe}">
+                        <h:outputText value="#{cli.rgIe}"/>
+                    </p:column>
+                    <p:column headerText="Endereço" filterBy="${cli.endereco}" filterMatchMode="contains"
+                              sortBy="#{cli.endereco}">
+                        <h:outputText value="#{cli.endereco}"/>
+                    </p:column>
+                    <p:column headerText="Cidade" filterBy="${cli.cidade.nome}" filterMatchMode="contains"
+                              sortBy="#{cli.cidade.nome}">
+                        <h:outputText value="#{cli.cidade.nome}"/>
+                    </p:column>
+                    <p:column headerText="Operações">
+                        <p:commandButton value="Excluir" 
+                                         action="#{clienteControle.excluir(cli)}"
+                                         ajax="false"
+                                         immediate="true"/>
+                        <p:commandButton value="Editar" 
+                                         action="clienteedita.xhtml"
+                                         actionListener="#{clienteControle.editar(cli)}"
+                                         ajax="false"
+                                         immediate="true"/>
+                    </p:column>
+                </p:dataTable>
+               
+            </h:form>
+        </ui:define>        
+    </ui:composition>
+</html>

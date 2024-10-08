@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>VendPlace Home</title>
+        <style>
+
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+
+            /* Estilizando a cor do texto para botões e menus */
+            .ui-panelmenu .ui-panelmenu-header,
+            .ui-menuitem-link,
+            .ui-submenu-link {
+                background-color: #fff;
+                color: black !important;  /* Força a cor do texto para branco */
+            }
+
+            /* Quando o botão/menu estiver selecionado ou ativo */
+            .ui-menuitem-link:hover,
+            .ui-submenu-link:hover,
+            .ui-menuitem-link:focus,
+            .ui-submenu-link:focus {
+                background-color: #3a3a3a;
+                color: #ffffff;  /* Mantém o texto branco ao focar ou passar o mouse */
+            }
+
+            body {
+                background-color: #363636;
+                color: #ffffff;
+                font-family: Arial, sans-serif;
+            }
+
+            .ui-outputlabel {
+                color: black;
+            }
+
+            table {
+                width: 100%;
+                padding: 10px;
+            }
+
+            img {
+                filter: brightness(0.8);
+            }
+
+            .layout{
+                background-color: #363636;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+
+<!--            <p:layoutUnit styleClass="layout" position="south" size="40" style="background-color: #2b2b2b; ">
+                <div align="center">
+                    <p:outputLabel value="Todos os direitos reservados. @2024 Vitor Odorico &amp; Maria Clara" style="color: #fff;"/>
+                </div>
+            </p:layoutUnit>-->
+            <p:layoutUnit styleClass="layout" position="west" size="280" style="background-color: #2b2b2b">
+                <h:form id="formulario">
+                    <!-- logo da aplicação -->
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100px; ">
+                        <img src="./img/VendPlace__1_-removebg-preview.png" width="270px"/>
+
+                    </div>
+  
+                    <p:commandButton action="/index.xhtml" icon="pi pi-home" value=" Página inicial" ajax="false" style="width:  270px; text-align: left; background-color: #363636; border: none; height: 41px"/>
+
+                    <!-- direcionamento para autenticação de usuarios -->
+                    <p:panelMenu style="width: 270px">
+                        <p:submenu label="Autenticação"  rendered="true">
+                            <p:menuitem value="Cadastrar usuarios" ajax="false" action="/Autenticacao/cadastrarUsuario.xhtml" icon="pi pi-plus"/>
+                            <p:menuitem value="Usuarios" ajax="false" action="/Autenticacao/listarUsuarios.xhtml" icon="pi pi-fw pi-user"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                    <!-- direcionamento para relatórios -->
+                    <p:panelMenu style="width: 270px" >
+                        <p:submenu  label="Terceiros" rendered="true" >
+                            <p:menuitem value="Empresas Cadastradas" ajax="false" action="/Empresas/listarEmpresas.xhtml" icon="pi pi-home"/>
+                            <p:submenu label="Configuração">
+
+                                <p:menuitem value="Endereços" ajax="false" action="/Empresas/listarEmpresas.xhtml" icon="pi pi-plus"/>
+                                <p:submenu label="Fornecedores" rendered="true">
+                                    <p:menuitem value="Cadastrar Fornecedor" ajax="false" action="/Estoque/Fornecedor/cadastrarFornecedor.xhtml" icon="pi pi-plus"/>
+                                    <p:menuitem value="Visualizar Fornecedor" ajax="false" action="/Estoque/Fornecedor/listarFornecedor.xhtml" icon="pi pi-search"/>
+                                </p:submenu>
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:submenu label="Estoque" rendered="true">
+                            <p:submenu label="Produto" rendered="true">
+                                <p:menuitem value="Cadastrar Produto" ajax="false" action="/Estoque/Produto/cadastrarProduto.xhtml" icon="pi pi-tags"/>
+                                <p:menuitem value="Cadastrar Categoria" ajax="false" action="/Estoque/Produto/cadastrarCategoria.xhtml" icon="pi pi-shopping-cart"/>
+                                <p:menuitem value="Visualizar Categorias" ajax="false" action="/Estoque/Produto/listarCategoria.xhtml" icon="pi pi-search"/>
+                            </p:submenu>
+
+
+
+                            <p:menuitem value="Visualizar Estoque" ajax="false" action="/Estoque/visualizarEstoque.xhtml" icon="pi pi-search"/>
+                            <p:menuitem value="Movimentar Estoque" ajax="false" action="/Estoque/movimentarEstoque.xhtml" icon="pi pi-arrow-circle-right" />
+
+
+
+                        </p:submenu>
+                    </p:panelMenu>
+                    <!-- direcionamento para comercial -->
+                    <p:panelMenu style="width: 270px">
+                        <p:submenu label="Comercial" rendered="true">
+                            <p:menuitem value="Vender" ajax="false" action="#" icon="pi pi-dollar" />
+                            <p:menuitem value="Cadastrar Cliente" ajax="false" action="/Comercial/cadastrarcliente.xhtml" icon="pi pi-plus"/>
+
+                        </p:submenu>
+                    </p:panelMenu>
+                     <p:panelMenu style="width: 270px">
+                        <p:submenu label="Financeiro"  rendered="true">
+                            <p:menuitem value="Visualizar faturamento" ajax="false" action="/Autenticacao/cadastrarUsuario.xhtml" icon=""/>
+                            <p:menuitem value="Visualizar gastos" ajax="false" action="/Autenticacao/cadastrarUsuario.xhtml" icon=""/>
+                            
+                            <p:menuitem value="Gerar promissória" ajax="false" action="/Autenticacao/cadastrarUsuario.xhtml" icon=""/>
+                            
+                             <p:submenu label="Descontos"  rendered="true">
+                                <p:menuitem value="visualizar descontos" ajax="false" action="/Autenticacao/listarUsuarios.xhtml" icon="pi pi-fw pi-dollar"/>
+                            </p:submenu>
+                        </p:submenu>
+                    </p:panelMenu>
+                    <!-- direcionamento para relatórios -->
+                    <p:panelMenu style="width: 270px">
+                        <p:submenu label="Relatórios" rendered="true">
+                            <p:menuitem value="Relatório Geral de Vendas" ajax="false" action="#" icon="pi pi-file-o" />
+                        </p:submenu>
+                    </p:panelMenu>
+                    <!-- direcionamento para dashboards -->
+                    <p:panelMenu style="width: 270px">
+                        <p:submenu label="Dashboards" rendered="true" >
+                            <p:menuitem value="Dashboard Geral" ajax="false" action="/Dash/dash.xhtml" icon="pi pi-file-o" />
+                        </p:submenu>
+                    </p:panelMenu>
+                    
+
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit styleClass="layout" position="center" >
+                <ui:insert id="corpo" name="body" >
+                   
+                    <h:form>
+                        <p:commandButton action="${loginBean.logout()}"  value="Sair do sistema" ajax="false" style="width:  270px;height: 42px;" />
+                    </h:form>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        
+                        <img src="img/logo.png" width="" />
+                    </div>
+                </ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
