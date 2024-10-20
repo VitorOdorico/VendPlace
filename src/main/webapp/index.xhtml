@@ -84,30 +84,17 @@
                     </p:panelMenu>
                     <!-- direcionamento para relatórios -->
                     <p:panelMenu style="width: 270px" >
-                        <p:submenu  label="Terceiros" rendered="true" >
-                            <p:menuitem value="Empresas Cadastradas" ajax="false" action="/Empresas/listarEmpresas.xhtml" icon="pi pi-home"/>
-                            <p:submenu label="Configuração">
-
-                                <p:menuitem value="Endereços" ajax="false" action="/Empresas/listarEmpresas.xhtml" icon="pi pi-plus"/>
-                                <p:submenu label="Fornecedores" rendered="true">
-                                    <p:menuitem value="Cadastrar Fornecedor" ajax="false" action="/Estoque/Fornecedor/cadastrarFornecedor.xhtml" icon="pi pi-plus"/>
-                                    <p:menuitem value="Visualizar Fornecedor" ajax="false" action="/Estoque/Fornecedor/listarFornecedor.xhtml" icon="pi pi-search"/>
-                                </p:submenu>
-                            </p:submenu>
+                        <p:submenu  label="Unidades" rendered="true" >
+                           <p:menuitem value="Empresas" ajax="false" action="/Empresas/listarEmpresas.xhtml" icon="pi pi-home"/>
+                           
                         </p:submenu>
 
                         <p:submenu label="Estoque" rendered="true">
                             <p:submenu label="Produto" rendered="true">
                                 <p:menuitem value="Cadastrar Produto" ajax="false" action="/Estoque/Produto/cadastrarProduto.xhtml" icon="pi pi-tags"/>
-                                <p:menuitem value="Cadastrar Categoria" ajax="false" action="/Estoque/Produto/cadastrarCategoria.xhtml" icon="pi pi-shopping-cart"/>
-                                <p:menuitem value="Visualizar Categorias" ajax="false" action="/Estoque/Produto/listarCategoria.xhtml" icon="pi pi-search"/>
+                               
                             </p:submenu>
-
-
-
                             <p:menuitem value="Visualizar Estoque" ajax="false" action="/Estoque/visualizarEstoque.xhtml" icon="pi pi-search"/>
-                            <p:menuitem value="Movimentar Estoque" ajax="false" action="/Estoque/movimentarEstoque.xhtml" icon="pi pi-arrow-circle-right" />
-
 
 
                         </p:submenu>
@@ -116,7 +103,7 @@
                     <p:panelMenu style="width: 270px">
                         <p:submenu label="Comercial" rendered="true">
                             <p:menuitem value="Vender" ajax="false" action="#" icon="pi pi-dollar" />
-                            <p:menuitem value="Cadastrar Cliente" ajax="false" action="/Comercial/cadastrarcliente.xhtml" icon="pi pi-plus"/>
+                            <p:menuitem value="Cadastrar Cliente" ajax="false" action="/Comercial/cadastrarCliente.xhtml" icon="pi pi-plus"/>
 
                         </p:submenu>
                     </p:panelMenu>
@@ -138,12 +125,7 @@
                             <p:menuitem value="Relatório Geral de Vendas" ajax="false" action="#" icon="pi pi-file-o" />
                         </p:submenu>
                     </p:panelMenu>
-                    <!-- direcionamento para dashboards -->
-                    <p:panelMenu style="width: 270px">
-                        <p:submenu label="Dashboards" rendered="true" >
-                            <p:menuitem value="Dashboard Geral" ajax="false" action="/Dash/dash.xhtml" icon="pi pi-file-o" />
-                        </p:submenu>
-                    </p:panelMenu>
+                   
                     
 
                 </h:form>

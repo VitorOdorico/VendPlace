@@ -4,7 +4,7 @@
  */
 package Controladores;
 
-import Entidades.Categoria;
+
 import Entidades.Produto;
 import Facade.ProdutoFacade;
 import java.io.Serializable;
@@ -21,7 +21,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class ProdutoControle implements Serializable{
-     private Produto produto;
+    private Produto produto;
     @PostConstruct
     public void init() {
         produto = new Produto();

@@ -14,8 +14,8 @@
 
                 <h:form >
                     <p:messages showDetail="true" showSummary="true"/>
-
                     <p:growl />
+
                     <h:panelGrid columns="1" style="justify-content: center; ">
                         <p:outputLabel for="@next" value="Nome"/>
                         <p:inputText value="#{produtoControle.produto.nome}"
@@ -27,7 +27,7 @@
                         <p:inputText value="#{produtoControle.produto.descricao}"
                                      size="40"
                                      required="true"
-                                     requiredMessage="O nome é orbrigatório!"/>
+                                     requiredMessage="A descrição é obrigatória!"/>
 
                         <h:outputLabel value="Valor:" for="valor"/>
                         <p:inputNumber id="valor"
@@ -44,7 +44,6 @@
                         <h:outputLabel value="Quantidade:" for="quantidade"/>
                         <p:inputNumber id="Quantidade"
                                        value="#{produtoControle.produto.quantidade}"
-
                                        thousandSeparator="."
                                        decimalSeparator=","
                                        required="true"
@@ -53,46 +52,17 @@
                                        maxValue="9999999"
                                        size="40"/>
 
-                        <h:outputLabel value="Categoria" for="quantidade"/>
-                        <p:selectOneMenu id="categoria" value="#{produtoControle.produto.categoria}" 
-                                         converter="categoriaConverter" style="width: 325px" required="true" 
-                                         requiredMessage="A categoria é obrigatória!">
-                            <f:selectItem itemLabel="Selecione" itemValue="" />
-                            <f:selectItems value="#{categoriaControle.listaCategorias}" var="cat" 
-                                           itemLabel="#{cat.nome}" itemValue="#{cat}" />
-                        </p:selectOneMenu>
-
-
-
-
-                        <h:outputLabel value="Fornecedor" for="fornecedor"/>
-                        <p:selectOneMenu id="fornecedor" value="#{produtoControle.produto.fornecedor}" 
-                                         converter="fornecedorConverter" style="width: 325px">
-                            <f:selectItem itemLabel="Selecione" itemValue="" />
-                            <f:selectItems value="#{fornecedorControle.listaFornecedor}" var="forn" 
-                                           itemLabel="#{forn.nomeFantasia}" itemValue="#{forn}" />
-                        </p:selectOneMenu>
-                        
-                        <h:outputLabel value="Unidade Operacional" for="unidadeOperacional"/>
-                        <p:selectOneMenu id="unidadeOperacional" value="#{produtoControle.produto.unidadeOperacional}" 
-                                         converter="unidadeOperacionalConverter" style="width: 325px">
-                            <f:selectItem itemLabel="Selecione" itemValue="" />
-                            <f:selectItems value="#{unidadeOperacionalControle.listaUnidadeOperacional}" var="unop" 
-                                           itemLabel="#{unop.nome}" itemValue="#{unop}" />
-                        </p:selectOneMenu>
-
-
-
-                        <p:commandButton value="Cadastrar" 
-                                         action="#{produtoControle.novo()}"                                        
-                                         style="text-align: center"
-                                         ajax="false"/>
-
+                        <!-- Div para centralizar o botão -->
+                        <div style="margin: 0 auto; text-align: center">
+                            <p:commandButton value="Cadastrar" 
+                                             action="#{produtoControle.salvar()}"
+                                             ajax="false"/>
+                        </div>
 
                     </h:panelGrid>                
 
-
                 </h:form>
+
             </div>
         </ui:define>        
     </ui:composition>

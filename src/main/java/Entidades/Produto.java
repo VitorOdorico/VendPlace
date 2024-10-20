@@ -46,18 +46,7 @@ public class Produto implements Serializable, ClassePai {
     @Column(name = "quantidade", nullable = false)
     private int quantidade;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private Categoria categoria;
-
-
-    @ManyToOne
-    @JoinColumn(name = "fornecedor_id", nullable = false)
-    private Fornecedor fornecedor;
-
-    @ManyToOne
-    @JoinColumn(name = "unidade_operacional_id", nullable = false)
-    private UnidadeOperacional unidadeOperacional;
+    
 
     // Getters e Setters
    
@@ -94,29 +83,7 @@ public class Produto implements Serializable, ClassePai {
         this.quantidade = quantidade;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-
-    public UnidadeOperacional getUnidadeOperacional() {
-        return unidadeOperacional;
-    }
-
-    public void setUnidadeOperacional(UnidadeOperacional unidadeOperacional) {
-        this.unidadeOperacional = unidadeOperacional;
-    }
+    
      @Override
     public Long getId() {
         return id;

@@ -8,36 +8,27 @@ package Converter;
  *
  * @author VCosta
  */
-import Entidades.UnidadeOperacional;
+import Entidades.ClassePai;
+import Facade.AbstractFacade;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
-@FacesConverter(value = "unidadeOperacionalConverter")
+
 public class UnidadeOperacionalConverter implements Converter {
+ private AbstractFacade abstractFacade;
 
+    public UnidadeOperacionalConverter(AbstractFacade abstractFacade) {
+        this.abstractFacade = abstractFacade;
+    }
+    
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value != null && !value.isEmpty()) {
-            try {
-                return component.getAttributes().get("unidadeOperacional_" + Long.parseLong(value));
-            } catch (NumberFormatException e) {
-                return null;
-            }
-        }
-        return null;
+        return abstractFacade.buscar(Long.parseLong(value));
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value instanceof UnidadeOperacional) {
-            UnidadeOperacional unidade = (UnidadeOperacional) value;
-            if (unidade != null && unidade.getId() != null) {
-                component.getAttributes().put("unidadeOperacional_" + unidade.getId(), unidade);
-                return unidade.getId().toString();
-            }
-        }
-        return "";
+    public String getAsString(FacesContext fc, UIComponent uic, Object o) {
+        return ((ClassePai)o).getId().toString();
     }
 }

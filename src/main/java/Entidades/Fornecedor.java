@@ -5,6 +5,7 @@
 package Entidades;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "fornecedor")
-public class Fornecedor {
+public class Fornecedor implements Serializable, ClassePai{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Modificado para Long

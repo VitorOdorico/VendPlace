@@ -1,18 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Facade;
+
 
 import Entidades.Produto;
 import javax.ejb.Stateless;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author VCosta
- */
+@ManagedBean
+@RequestScoped
 @Stateless
 public class ProdutoFacade extends AbstractFacade<Produto>{
      @PersistenceContext(unitName = "VendPlacePU")
@@ -27,5 +25,5 @@ public class ProdutoFacade extends AbstractFacade<Produto>{
         super(Produto.class);
     }
 
-
+    
 }

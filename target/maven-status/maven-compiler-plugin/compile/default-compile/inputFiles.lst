@@ -12,8 +12,11 @@ C:\dev\VendPlace\src\main\java\Entidades\Usuario.java
 C:\dev\VendPlace\src\main\java\Facade\ProdutoFacade.java
 C:\dev\VendPlace\src\main\java\Facade\AbstractFacade.java
 C:\dev\VendPlace\src\main\java\Facade\UnidadeOperacionalFacade.java
+C:\dev\VendPlace\src\main\java\Entidades\Cliente.java
 C:\dev\VendPlace\src\main\java\Controladores\FornecedorControle.java
+C:\dev\VendPlace\src\main\java\Facade\ClienteFacade.java
 C:\dev\VendPlace\src\main\java\Controladores\ProdutoControle.java
+C:\dev\VendPlace\src\main\java\Controladores\ClienteControle.java
 C:\dev\VendPlace\src\main\java\Entidades\ClassePai.java
 C:\dev\VendPlace\src\main\java\Converter\UnidadeOperacionalConverter.java
 C:\dev\VendPlace\src\main\java\Controladores\UsuariosControle.java

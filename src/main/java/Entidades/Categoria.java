@@ -1,5 +1,6 @@
 package Entidades;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categoria")
-public class Categoria {
+public class Categoria implements Serializable, ClassePai{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,15 +35,15 @@ public class Categoria {
         this.descricao = descricao;
     }
 
-    public Long getId() {
+
+    @Override
+      public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

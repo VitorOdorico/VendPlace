@@ -1,4 +1,5 @@
 package Entidades;
+import java.io.Serializable;
 import javax.persistence.*;
 
 /**
@@ -8,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable, ClassePai{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

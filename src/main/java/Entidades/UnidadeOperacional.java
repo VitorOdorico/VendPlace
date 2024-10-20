@@ -1,11 +1,12 @@
 package Entidades;
 
+import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "unidade_operacional")
-public class UnidadeOperacional {
+public class UnidadeOperacional  implements Serializable, ClassePai{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
