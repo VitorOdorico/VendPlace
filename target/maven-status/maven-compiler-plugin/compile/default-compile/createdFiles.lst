@@ -1,4 +1,5 @@
 Controladores\FornecedorControle.class
+Entidades\Venda.class
 Facade\AbstractFacade.class
 Entidades\Usuario.class
 Entidades\Produto.class
@@ -9,15 +10,18 @@ Facade\CategoriaFacade.class
 Facade\FornecedorFacade.class
 Entidades\Categoria.class
 Controladores\LoginBean.class
+Controladores\VendaControle.class
 Converter\CategoriaConverter.class
 Controladores\ProdutoControle.class
 Controladores\UsuariosControle.class
 Entidades\Fornecedor.class
+Converter\ConverterGenerico.class
 Entidades\ClassePai.class
 Controladores\CategoriaControle.class
 Facade\UsuarioFacade.class
 Controladores\ClienteControle.class
 Facade\ProdutoFacade.class
+Facade\VendaFacade.class
 Converter\FornecedorConverter.class
 Facade\UnidadeOperacionalFacade.class
 Controladores\UnidadeOperacionalControle.class

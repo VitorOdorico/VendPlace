@@ -1,11 +1,63 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Cadastrar venda
-    </h:body>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+
+            <div style="align-items: center; display: flex;flex-direction: column;justify-content: center;">
+
+                <h:form >
+
+                    <p:messages showDetail="true"/>
+                    <p:growl />
+                    <h:panelGrid columns="2">
+
+                        <p:outputLabel for="@next" value=" Cliente"/>
+                        <p:selectOneMenu value="#{vendaControle.venda.cliente}" converter="#{vendaControle.clienteConverter}">
+                            <f:selectItems value="#{vendaControle.listaClientes}" var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" />
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel for="@next" value=" Produto"/>
+                        <p:selectOneMenu value="#{vendaControle.venda.produto}" converter="#{vendaControle.produtoConverter}">
+                            <f:selectItems value="#{vendaControle.listaProdutos}" var="prod" itemLabel="#{prod.nome}" itemValue="#{prod}" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel for="@next" value=" Quantidade"/>
+                        <p:outputLabel for="@next" value="#{prod.quantidade}"/>
+                        
+                        
+                        <p:outputLabel for="@next" value=" Valor Total"/>
+                        <p:inputText value="#{vendaControle.venda.valorTotal}"
+                                     size="40"
+                                     required="true"
+                                     requiredMessage="O valor total é obrigatório!"
+                                     type="number"/>
+
+                        <p:outputLabel for="@next" value=" Data da Venda"/>
+                      <p:calendar value="#{vendaControle.venda.dataVenda}" pattern="dd/MM/yyyy" locale="pt_BR" />
+
+                    </h:panelGrid>        
+
+
+
+                    <div style="text-align: center">
+                        <p:commandButton value="Cadastrar Venda" 
+                                         actionListener="#{vendaControle.salvar()}"
+                                         ajax="false"
+                                         styleClass="ui-button-raised ui-button-flat" />
+
+                    </div>
+
+
+
+                </h:form>
+            </div>
+        </ui:define>        
+    </ui:composition>
 </html>
