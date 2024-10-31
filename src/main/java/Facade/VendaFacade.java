@@ -1,16 +1,16 @@
 package Facade;
 
+import Entidades.ItemVenda;
+import Entidades.Produto;
 import Entidades.Venda;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
-/**
- * Facade para a entidade Venda.
- */
-@ManagedBean
 @Stateless
 public class VendaFacade extends AbstractFacade<Venda> {
 
@@ -29,5 +29,19 @@ public class VendaFacade extends AbstractFacade<Venda> {
     // Listar todas as vendas
     public List<Venda> listarTodas() {
         return em.createQuery("FROM Venda", Venda.class).getResultList();
+    }
+    
+    
+    
+    
+    
+    @Override
+    public void salvar(Venda entity) {
+        for(ItemVenda it : entity.getItemvenda()){
+            Produto p = it.getProduto();
+            p.setEstoque (p.getEstoque()- it.getQuantidade());
+            em.merge(p);
+        }
+        super.salvar(entity);
     }
 }

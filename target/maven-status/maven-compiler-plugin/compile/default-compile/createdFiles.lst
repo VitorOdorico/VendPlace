@@ -9,6 +9,7 @@ Facade\ClienteFacade.class
 Facade\CategoriaFacade.class
 Facade\FornecedorFacade.class
 Entidades\Categoria.class
+Entidades\ItemVenda.class
 Controladores\LoginBean.class
 Controladores\VendaControle.class
 Converter\CategoriaConverter.class

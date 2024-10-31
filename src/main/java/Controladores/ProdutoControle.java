@@ -28,6 +28,14 @@ public class ProdutoControle implements Serializable{
     }
     @EJB
     private ProdutoFacade produtoFacade;
+
+    public ProdutoFacade getProdutoFacade() {
+        return produtoFacade;
+    }
+
+    public void setProdutoFacade(ProdutoFacade produtoFacade) {
+        this.produtoFacade = produtoFacade;
+    }
     
     public void novo(){
         produto = new Produto();

@@ -1,44 +1,65 @@
 package Entidades;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entidade que representa uma Venda.
  */
 @Entity
 public class Venda implements Serializable {
-
+    
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date dataVenda; // Data e hora da venda
-    private BigDecimal valorTotal; // Valor total da venda
-
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataVenda;
+     
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente; // Relacionamento com a entidade Cliente
+    private Cliente cliente;
+    
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "venda")
+    private List<ItemVenda> itemVenda;
 
-    @ManyToOne
-    @JoinColumn(name = "produto_id")
-    private Produto produto; // Relacionamento com a entidade Produto
+    // Novo atributo para armazenar o valor total
+    private Double valorTotal;
 
-    // Getters e Setters
-    public Long getId() {
-        return id;
+    public Venda() {
+        itemVenda = new ArrayList<>();
+        dataVenda = new Date();
+        valorTotal = 0d;  // Inicializa o valor total
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    
+    public List<ItemVenda> getItemVenda() {
+        return itemVenda;
+    }
+    
+    public void setItemVenda(List<ItemVenda> itemVenda) {
+        this.itemVenda = itemVenda;
+        atualizarValorTotal();  // Atualiza o valor total ao definir os itens
+    }
+    
+    // Método para atualizar o valor total com base nos itens da venda
+      private void atualizarValorTotal() {
+        valorTotal = 0d;
+        for (ItemVenda it : itemVenda) {
+            valorTotal += it.getSubtotal();
+        }
     }
 
     public Date getDataVenda() {
@@ -49,14 +70,6 @@ public class Venda implements Serializable {
         this.dataVenda = dataVenda;
     }
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
     public Cliente getCliente() {
         return cliente;
     }
@@ -65,14 +78,38 @@ public class Venda implements Serializable {
         this.cliente = cliente;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public List<ItemVenda> getItemvenda() {
+        return itemVenda;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setItemvenda(List<ItemVenda> itemvenda) {
+        this.itemVenda = itemvenda;
+        atualizarValorTotal();  // Atualiza o valor total ao definir os itens
+    }
+    
+    public Long getId() {
+        return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getValorTotal() {
+        return valorTotal;  // Método para acessar o valor total
+    }
+    public Double getTotal() {
+    Double total = 0d;
+    for (ItemVenda it : itemVenda) {
+        total = total + it.getSubtotal(); // Aqui você soma o subtotal de cada item
+    }
+    return total;
+}
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

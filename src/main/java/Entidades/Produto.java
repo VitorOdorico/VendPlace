@@ -12,14 +12,11 @@ package Entidades;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -28,7 +25,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "produto")
 public class Produto implements Serializable, ClassePai {
-
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_produto")
@@ -41,10 +38,10 @@ public class Produto implements Serializable, ClassePai {
     private String descricao;
 
     @Column(name = "valor", nullable = false)
-    private BigDecimal valor;
+    private Double valor;
 
-    @Column(name = "quantidade", nullable = false)
-    private int quantidade;
+    @Column(name = "estoque", nullable = false)
+    private int estoque;
 
     
 
@@ -67,20 +64,20 @@ public class Produto implements Serializable, ClassePai {
         this.descricao = descricao;
     }
 
-    public BigDecimal getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(BigDecimal valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getEstoque() {
+        return estoque;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
     }
 
     
@@ -93,7 +90,7 @@ public class Produto implements Serializable, ClassePai {
         this.id = id;
     }
     @Override
-    public int hashCode() {
+ public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;

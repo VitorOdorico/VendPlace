@@ -6,47 +6,51 @@ package Controladores;
 
 import Converter.ConverterGenerico;
 import Entidades.Cliente;
+import Entidades.ItemVenda;
 import Entidades.Produto;
 import Entidades.Venda;
 import Facade.ClienteFacade;
 import Facade.ProdutoFacade;
 import Facade.VendaFacade;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class VendaControle implements Serializable {
 
     private Venda venda;
-    private List<Cliente> listaClientes;
-    private List<Produto> listaProdutos;
+      @PostConstruct
+    public void init() {
+        venda = new Venda(); // Inicializa o objeto venda
+    }
+    private ItemVenda itemVenda;
+     public VendaControle() {
+        itemVenda = new ItemVenda(); // Inicializa itemVenda para evitar o erro
+    }
     @EJB
     private VendaFacade vendafacade;
     @EJB
-    private ClienteFacade clientefacade;
+    private ClienteFacade clienteFacade;
     @EJB
-    private ProdutoFacade produtofacade;
-    
+    private ProdutoFacade produtoFacade;
+
     private ConverterGenerico clienteConverter;
     private ConverterGenerico produtoConverter;
-    
-    
-    @PostConstruct
-    public void init() {
-        venda = new Venda();
-        listaClientes = carregarClientes();
-        listaProdutos = carregarProdutos();
+
+    public void atualizaPreco() {
+        itemVenda.setPreco(itemVenda.getProduto().getValor());
     }
-    
-      public ConverterGenerico getProdutoConverter() {
+   
+    public ConverterGenerico getProdutoConverter() {
         if (produtoConverter == null) {
-            produtoConverter = new ConverterGenerico(produtofacade);
+            produtoConverter = new ConverterGenerico(produtoFacade);
         }
         return produtoConverter;
     }
@@ -54,49 +58,111 @@ public class VendaControle implements Serializable {
     public void setProdutoConverter(ConverterGenerico produtoConverter) {
         this.produtoConverter = produtoConverter;
     }
-    
 
-     public ConverterGenerico getClienteConverter() {
+    public VendaFacade getVendafacade() {
+        return vendafacade;
+    }
+
+    public void setVendafacade(VendaFacade vendafacade) {
+        this.vendafacade = vendafacade;
+    }
+
+    public ClienteFacade getClienteFacade() {
+        return clienteFacade;
+    }
+
+    public void setClienteFacade(ClienteFacade clienteFacade) {
+        this.clienteFacade = clienteFacade;
+    }
+
+    public ProdutoFacade getProdutoFacade() {
+        return produtoFacade;
+    }
+
+    public void setProdutoFacade(ProdutoFacade produtoFacade) {
+        this.produtoFacade = produtoFacade;
+    }
+
+     public ItemVenda getItemvenda() {
+        return itemVenda;
+    }
+
+    public ItemVenda getItemVenda() {
+        return itemVenda;
+    }
+
+    public void setItemVenda(ItemVenda itemVenda) {
+        this.itemVenda = itemVenda;
+    }
+
+    public void setItemvenda(ItemVenda itemVenda) {
+        this.itemVenda = itemVenda;
+    }
+
+     public List<Cliente> getListaClientesFiltrando(String filtro) {
+        return clienteFacade.listaFiltrando(filtro, "nome", "cpfCnpj");
+    }
+
+    public List<Produto> getListaProdutosFiltrando(String filtro) {
+        return produtoFacade.listaFiltrando(filtro, "nome");
+    }
+    public void adicionarItem() {
+    int estoque = itemVenda.getProduto().getEstoque();
+    ItemVenda itemTemp = null;
+    for (ItemVenda it : venda.getItemvenda()) {
+        if (it.getProduto().getId().equals(itemVenda.getProduto().getId())) {
+            itemTemp = it;
+            estoque = estoque - it.getQuantidade();
+        }
+    }
+    if (estoque < itemVenda.getQuantidade()) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                FacesMessage.SEVERITY_ERROR, "Estoque insuficiente!", "Restam apenas "
+                + estoque + " unidade!"));
+    } else {
+        if (itemTemp == null) {
+            itemVenda.setVenda(venda);
+            venda.getItemvenda().add(itemVenda);
+        } else {
+            itemTemp.setQuantidade(itemTemp.getQuantidade() + itemVenda.getQuantidade());
+        }
+        
+        venda.setValorTotal(venda.getTotal());  // Atualiza o valor total
+        itemVenda = new ItemVenda();
+    }
+}
+public Double getValorTotalVenda() {
+    return venda.getTotal();
+}
+
+    
+    public ConverterGenerico getClienteConverter() {
         if (clienteConverter == null) {
-            clienteConverter = new ConverterGenerico(clientefacade);
+            clienteConverter = new ConverterGenerico(clienteFacade);
         }
         return clienteConverter;
     }
-
-    public void setClienteConverter(ConverterGenerico clienteConverter) {
+     public void setClienteConverter(ConverterGenerico clienteConverter) {
         this.clienteConverter = clienteConverter;
     }
+      public void novo() {
+        venda = new Venda();
+        itemVenda = new ItemVenda();
+    }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public void salvar() {
-        // Chama o facade para salvar a venda
         vendafacade.salvar(venda);
+        venda = new Venda();
     }
 
-    // Métodos para carregar clientes e produtos (simulação)
-    private List<Cliente> carregarClientes() {
-        // Simula a busca de clientes do banco de dados ou outro serviço
-        return clientefacade.listaTodos();
+    public void excluir(Venda ve) {
+        vendafacade.remover(ve);
     }
 
-    private List<Produto> carregarProdutos() {
-        // Simula a busca de produtos do banco de dados ou outro serviço
-        return produtofacade.listaTodos();
+    public void editar(Venda ve) {
+        this.venda = ve;
     }
 
-    // Getters e Setters
     public Venda getVenda() {
         return venda;
     }
@@ -105,19 +171,8 @@ public class VendaControle implements Serializable {
         this.venda = venda;
     }
 
-    public List<Cliente> getListaClientes() {
-        return listaClientes;
+    public List<Venda> getListaVendas() {
+        return vendafacade.listaTodos();
     }
-
-    public void setListaClientes(List<Cliente> listaClientes) {
-        this.listaClientes = listaClientes;
-    }
-
-    public List<Produto> getListaProdutos() {
-        return listaProdutos;
-    }
-
-    public void setListaProdutos(List<Produto> listaProdutos) {
-        this.listaProdutos = listaProdutos;
-    }
+     
 }

@@ -8,56 +8,80 @@
 
     <ui:composition template="/index.xhtml">
         <ui:define name="body">
-
-            <div style="align-items: center; display: flex;flex-direction: column;justify-content: center;">
-
-                <h:form >
-
-                    <p:messages showDetail="true"/>
-                    <p:growl />
-                    <h:panelGrid columns="2">
-
-                        <p:outputLabel for="@next" value=" Cliente"/>
-                        <p:selectOneMenu value="#{vendaControle.venda.cliente}" converter="#{vendaControle.clienteConverter}">
-                            <f:selectItems value="#{vendaControle.listaClientes}" var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" />
-                        </p:selectOneMenu>
-
-
-                        <p:outputLabel for="@next" value=" Produto"/>
-                        <p:selectOneMenu value="#{vendaControle.venda.produto}" converter="#{vendaControle.produtoConverter}">
-                            <f:selectItems value="#{vendaControle.listaProdutos}" var="prod" itemLabel="#{prod.nome}" itemValue="#{prod}" />
-                        </p:selectOneMenu>
+            <h2>Movimento de Vendas</h2>
+            <h:form>
+                <p:messages showDetail="true" id="mensagem"/>
+                <p:growl />
+                <h:panelGrid columns="1">
+                    Data da Venda:<p:calendar value="#{vendaControle.venda.dataVenda}" 
+                                              pattern="dd/MM/yyyy"
+                                              locale="pt_BR" />                    
+                     <p:outputLabel value="Cliente "/><p:autoComplete value="#{vendaControle.venda.cliente}"
+                                            converter="#{vendaControle.clienteConverter}"
+                                            completeMethod="#{vendaControle.getListaClientesFiltrando}"
+                                            var="cli"
+                                            itemLabel="#{cli.nome}"
+                                            itemValue="#{cli}" size="40"/>
+                     
                         
-                        <p:outputLabel for="@next" value=" Quantidade"/>
-                        <p:outputLabel for="@next" value="#{prod.quantidade}"/>
-                        
-                        
-                        <p:outputLabel for="@next" value=" Valor Total"/>
-                        <p:inputText value="#{vendaControle.venda.valorTotal}"
-                                     size="40"
-                                     required="true"
-                                     requiredMessage="O valor total é obrigatório!"
-                                     type="number"/>
-
-                        <p:outputLabel for="@next" value=" Data da Venda"/>
-                      <p:calendar value="#{vendaControle.venda.dataVenda}" pattern="dd/MM/yyyy" locale="pt_BR" />
-
-                    </h:panelGrid>        
-
-
-
-                    <div style="text-align: center">
-                        <p:commandButton value="Cadastrar Venda" 
-                                         actionListener="#{vendaControle.salvar()}"
-                                         ajax="false"
-                                         styleClass="ui-button-raised ui-button-flat" />
-
-                    </div>
-
-
-
-                </h:form>
-            </div>
+                </h:panelGrid>  
+                <p:outputLabel value="Total: "
+                               style="color: blue; font-size: x-large"/>
+                <p:outputLabel value="#{vendaControle.valorTotalVenda}" id="total"
+                               style="color: blue; font-size: x-large">
+                    <f:convertNumber type="currency"/>
+                </p:outputLabel>
+                <p:panel header="Itens da Venda" id="painel">                    
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="Produto"/>
+                        <p:autoComplete value="#{vendaControle.itemVenda.produto}"
+                                        converter="#{vendaControle.produtoConverter}"
+                                                completeMethod="#{vendaControle.getListaProdutosFiltrando}"
+                                                var="prod"
+                                                itemLabel="#{prod.nome}"
+                                                itemValue="#{prod}"
+                                                size="40">
+                            <p:ajax update="preco" 
+                                    event="itemSelect" 
+                                    listener="#{vendaControle.atualizaPreco()}" />
+                        </p:autoComplete>
+                    
+                        Quantidade: <p:inputText value="#{vendaControle.itemVenda.quantidade}" size="40"/>
+                        Preço: <p:inputText value="#{vendaControle.itemVenda.preco}" 
+                                            id="preco"
+                                            size="40"/>
+                        <p:commandButton value="Adicionar ao carrinho" 
+                                         ajax="true"
+                                         update="mensagem total painel"
+                                         actionListener="#{vendaControle.adicionarItem()}"/>
+                    </p:panelGrid>
+                    <p:dataTable value="#{vendaControle.venda.itemVenda}" 
+                                 var="iv">
+                        <p:column headerText="Produto" >
+                            <p:outputLabel value="#{iv.produto.nome}"/>
+                        </p:column>
+                        <p:column headerText="Quantidade" >
+                            <p:outputLabel value="#{iv.quantidade}"/>
+                        </p:column>
+                        <p:column headerText="Preço" >
+                            <p:outputLabel value="#{iv.preco}">
+                                <f:convertNumber type="currency"/>
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column headerText="SubTotal" >
+                            <p:outputLabel value="#{iv.subtotal}">
+                                <f:convertNumber type="currency"/>
+                            </p:outputLabel>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <p:commandButton value="Salvar" 
+                                 actionListener="#{vendaControle.salvar()}"
+                                 ajax="false"/>
+                <p:commandButton value="Cancelar" 
+                                 immediate="true"
+                                 ajax="false"/>
+            </h:form>
         </ui:define>        
     </ui:composition>
 </html>
