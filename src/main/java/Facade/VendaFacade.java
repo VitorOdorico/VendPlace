@@ -3,8 +3,7 @@ package Facade;
 import Entidades.ItemVenda;
 import Entidades.Produto;
 import Entidades.Venda;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,7 +30,13 @@ public class VendaFacade extends AbstractFacade<Venda> {
         return em.createQuery("FROM Venda", Venda.class).getResultList();
     }
     
-    
+    public List<Venda> buscarVendasPorPeriodo(Date startDate, Date endDate) {
+        TypedQuery<Venda> query = em.createQuery(
+                "SELECT v FROM Venda v WHERE v.dataVenda BETWEEN :startDate AND :endDate", Venda.class);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return query.getResultList();
+    }
     
     
     
