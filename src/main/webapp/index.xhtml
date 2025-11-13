@@ -55,7 +55,81 @@
                 background-color: #363636;
             }
 
+            .dashboard-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 40px;
+                justify-items: center;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .dashboard-button {
+                width: 300px !important;
+                height: 180px !important;
+                color: #fff !important;
+                font-size: 1.3rem !important;
+                font-weight: bold !important;
+                border-radius: 20px !important;
+                transition: all 0.3s ease !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                text-align: center !important;
+                border: none !important;
+                box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+            }
+
+            .dashboard-button .ui-button-icon-left {
+                font-size: 3rem !important;
+                margin-bottom: 12px !important;
+            }
+
+            /* Cores personalizadas por módulo */
+            .btn-comercial {
+                background: linear-gradient(145deg, #28a745, #34ce57) !important; /* verde */
+            }
+            .btn-estoque {
+                background: linear-gradient(145deg, #ff9800, #ffa726) !important; /* laranja */
+            }
+            .btn-financeiro {
+                background: linear-gradient(145deg, #2196f3, #42a5f5) !important; /* azul */
+            }
+            .btn-relatorios {
+                background: linear-gradient(145deg, #9c27b0, #ba68c8) !important; /* roxo */
+            }
+            .btn-usuarios {
+                background: linear-gradient(145deg, #607d8b, #78909c) !important; /* cinza-azulado */
+            }
+
+            /* Efeito hover */
+            .dashboard-button:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+                filter: brightness(1.1);
+            }
+
+            /* Responsividade */
+            @media (max-width: 768px) {
+                .dashboard-container {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+
+                .dashboard-button {
+                    width: 90% !important;
+                    height: 140px !important;
+                    font-size: 1.1rem !important;
+                }
+
+                .dashboard-button .ui-button-icon-left {
+                    font-size: 2rem !important;
+                }
+            }
         </style>
+        <h:outputStylesheet library="primefaces" name="primeicons/primeicons.css" />
+
     </h:head>
     <h:body>
         <p:layout fullPage="true">
@@ -125,23 +199,67 @@
                             <p:menuitem value="Relatório Geral de Vendas" ajax="false" action="/Relatorios/geralVendas.xhtml" icon="pi pi-file-o" />
                         </p:submenu>
                     </p:panelMenu>
-                   
-                    
+
+                    <p:commandButton value="Sair do sistema"
+                                     action="#{loginBean.logout}"
+                                     ajax="false"
+                                     style="width:270px; height:42px;" />
+
+
+
+
 
                 </h:form>
             </p:layoutUnit>
-            <p:layoutUnit styleClass="layout" position="center" >
-                <ui:insert id="corpo" name="body" >
-                   
-                    <h:form>
-                        <p:commandButton action="${loginBean.logout()}"  value="Sair do sistema" ajax="false" style="width:  270px;height: 42px;" />
+
+
+
+            <p:layoutUnit styleClass="layout" position="center">
+                <ui:insert id="corpo" name="body">
+                    <h:form style="padding: 60px;">
+                        <h2 style="color: white; text-align: center; margin-bottom: 60px; font-size: 2rem;">
+                            Bem-vindo ao VendPlace
+                        </h2>
+
+                        <div class="dashboard-container">
+
+                            <!-- Comercial -->
+                            <p:commandButton value="Comercial"
+                                             icon="pi pi-dollar"
+                                             action="/Comercial/cadastrarVenda.xhtml"
+                                             ajax="false"
+                                             styleClass="dashboard-button btn-comercial" />
+
+                            <!-- Estoque -->
+                            <p:commandButton value="Estoque"
+                                             icon="pi pi-folder"
+                                             action="/Estoque/visualizarEstoque.xhtml"
+                                             ajax="false"
+                                             styleClass="dashboard-button btn-estoque" />
+
+                            <!-- Financeiro -->
+                            <p:commandButton value="Financeiro"
+                                             icon="pi pi-briefcase"
+                                             action="/Financeiro/faturamentoTotal.xhtml"
+                                             ajax="false"
+                                             styleClass="dashboard-button btn-financeiro" />
+
+                            <!-- Relatórios -->
+                            <p:commandButton value="Relatórios"
+                                             icon="pi pi-file-o"
+                                             action="/Relatorios/geralVendas.xhtml"
+                                             ajax="false"
+                                             styleClass="dashboard-button btn-relatorios" />
+
+
+                        </div>
                     </h:form>
-                    <div style="display: flex; justify-content: center; align-items: center;">
-                        
-                        <img src="img/logo.png" width="" />
-                    </div>
                 </ui:insert>
             </p:layoutUnit>
+
+
+
+
         </p:layout>
     </h:body>
 </html>

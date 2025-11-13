@@ -1,6 +1,6 @@
 package Facade;
 
-import Entidades.Usuario;
+import Entities.Config.Usuario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

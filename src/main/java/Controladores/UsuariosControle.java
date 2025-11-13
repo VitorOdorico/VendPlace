@@ -1,14 +1,18 @@
 package Controladores;
 
-import Entidades.Usuario;
+import Entities.Config.Usuario;
 import Facade.UsuarioFacade;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import Utils.CriptografiaUtil;
 
 /**
  *
@@ -28,12 +32,24 @@ public class UsuariosControle implements Serializable{
     public void novo(){
         usuario = new Usuario();
     }
-    
-    public void salvar(){
-        usuarioFacade.salvar(usuario);
-        usuario = new Usuario();
+
+    public void salvar() {
+        try {
+            if (usuario.getSenha() != null && !usuario.getSenha().isEmpty()) {
+                usuario.setSenha(CriptografiaUtil.criptografar(usuario.getSenha()));
+            }
+            usuarioFacade.salvar(usuario);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário salvo com sucesso!", null));
+            usuario = new Usuario();
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar usuário: " + e.getMessage(), null));
+            e.printStackTrace();
+        }
     }
-    
+
+
     public void excluir(Usuario us){
         usuarioFacade.remover(us);
     }

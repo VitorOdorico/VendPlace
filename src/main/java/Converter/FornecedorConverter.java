@@ -1,14 +1,11 @@
 package Converter;
 
-import Entidades.ClassePai;
-import Entidades.Fornecedor;
+import Entities.ClassePai;
 import Facade.AbstractFacade;
-import Facade.FornecedorFacade;
-import javax.inject.Inject;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
 public class FornecedorConverter implements Converter {
 

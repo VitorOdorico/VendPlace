@@ -5,7 +5,7 @@
 package Controladores;
 
 
-import Entidades.Produto;
+import Entities.Product;
 import Facade.ProdutoFacade;
 import java.io.Serializable;
 import java.util.List;
@@ -21,10 +21,10 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class ProdutoControle implements Serializable{
-    private Produto produto;
+    private Product product;
     @PostConstruct
     public void init() {
-        produto = new Produto();
+        product = new Product();
     }
     @EJB
     private ProdutoFacade produtoFacade;
@@ -38,33 +38,33 @@ public class ProdutoControle implements Serializable{
     }
     
     public void novo(){
-        produto = new Produto();
+        product = new Product();
     }
     
     public void salvar(){
-        produtoFacade.salvar(produto);
-        produto = new Produto();
+        produtoFacade.salvar(product);
+        product = new Product();
     }
     
-    public void excluir(Produto prod){
+    public void excluir(Product prod){
         produtoFacade.remover(prod);
     }
     
-    public void editar(Produto prod){
-        this.produto = prod;
+    public void editar(Product prod){
+        this.product = prod;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public Product getProduto() {
+        return product;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setProduto(Product product) {
+        this.product = product;
     }
 
    
 
-    public List<Produto> getListaProdutos() {
+    public List<Product> getListaProdutos() {
         return produtoFacade.listaTodos();
     }    
     

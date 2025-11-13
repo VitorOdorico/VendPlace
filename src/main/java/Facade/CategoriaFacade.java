@@ -1,13 +1,12 @@
 package Facade;
 
 
-import Entidades.Categoria;
+import Entities.Categoria;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

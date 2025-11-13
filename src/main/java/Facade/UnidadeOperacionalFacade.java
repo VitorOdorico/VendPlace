@@ -6,7 +6,7 @@
 package Facade;
 
 
-import Entidades.UnidadeOperacional;
+import Entities.UnidadeOperacional;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -4,8 +4,7 @@
  */
 package Facade;
 
-import Entidades.Categoria;
-import Entidades.Cliente;
+import Entities.Cliente;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;

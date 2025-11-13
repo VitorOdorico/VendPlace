@@ -5,10 +5,10 @@
 package Controladores;
 
 import Converter.ConverterGenerico;
-import Entidades.Cliente;
-import Entidades.ItemVenda;
-import Entidades.Produto;
-import Entidades.Venda;
+import Entities.Cliente;
+import Entities.ItemVenda;
+import Entities.Product;
+import Entities.Venda;
 import Facade.ClienteFacade;
 import Facade.ProdutoFacade;
 import Facade.VendaFacade;
@@ -103,7 +103,7 @@ public class VendaControle implements Serializable {
         return clienteFacade.listaFiltrando(filtro, "nome", "cpfCnpj");
     }
 
-    public List<Produto> getListaProdutosFiltrando(String filtro) {
+    public List<Product> getListaProdutosFiltrando(String filtro) {
         return produtoFacade.listaFiltrando(filtro, "nome");
     }
     public void adicionarItem() {

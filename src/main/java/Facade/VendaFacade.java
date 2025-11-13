@@ -1,8 +1,8 @@
 package Facade;
 
-import Entidades.ItemVenda;
-import Entidades.Produto;
-import Entidades.Venda;
+import Entities.ItemVenda;
+import Entities.Product;
+import Entities.Venda;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -43,7 +43,7 @@ public class VendaFacade extends AbstractFacade<Venda> {
     @Override
     public void salvar(Venda entity) {
         for(ItemVenda it : entity.getItemvenda()){
-            Produto p = it.getProduto();
+            Product p = it.getProduto();
             p.setEstoque (p.getEstoque()- it.getQuantidade());
             em.merge(p);
         }

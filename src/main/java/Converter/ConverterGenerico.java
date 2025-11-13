@@ -4,7 +4,7 @@
  */
 package Converter;
 
-import Entidades.ClassePai;
+import Entities.ClassePai;
 import Facade.AbstractFacade;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

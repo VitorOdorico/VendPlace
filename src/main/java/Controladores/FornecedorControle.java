@@ -4,7 +4,7 @@
  */
 package Controladores;
 
-import Entidades.Fornecedor;
+import Entities.Fornecedor;
 import Facade.FornecedorFacade;
 import java.io.Serializable;
 import java.util.List;

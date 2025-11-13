@@ -1,7 +1,7 @@
 
 package Controladores;
 
-import Entidades.UnidadeOperacional;
+import Entities.UnidadeOperacional;
 import Facade.UnidadeOperacionalFacade;
 import java.io.Serializable;
 import java.util.List;

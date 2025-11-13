@@ -2,14 +2,15 @@
 package Facade;
 
 
-import Entidades.Produto;
+import Entities.Product;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 
 @Stateless
-public class ProdutoFacade extends AbstractFacade<Produto>{
+public class ProdutoFacade extends AbstractFacade<Product>{
     
     @PersistenceContext(unitName = "VendPlacePU")
     private EntityManager em;
@@ -20,7 +21,7 @@ public class ProdutoFacade extends AbstractFacade<Produto>{
     }
 
     public ProdutoFacade() {
-        super(Produto.class);
+        super(Product.class);
     }
 
     

@@ -34,7 +34,7 @@
                 <p:panel header="Itens da Venda" id="painel">                    
                     <p:panelGrid columns="1">
                         <p:outputLabel value="Produto"/>
-                        <p:autoComplete value="#{vendaControle.itemVenda.produto}"
+                        <p:autoComplete value="#{vendaControle.itemVenda.product}"
                                         converter="#{vendaControle.produtoConverter}"
                                                 completeMethod="#{vendaControle.getListaProdutosFiltrando}"
                                                 var="prod"
@@ -58,7 +58,7 @@
                     <p:dataTable value="#{vendaControle.venda.itemVenda}" 
                                  var="iv">
                         <p:column headerText="Produto" >
-                            <p:outputLabel value="#{iv.produto.nome}"/>
+                            <p:outputLabel value="#{iv.product.nome}"/>
                         </p:column>
                         <p:column headerText="Quantidade" >
                             <p:outputLabel value="#{iv.quantidade}"/>

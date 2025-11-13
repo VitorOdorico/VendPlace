@@ -18,20 +18,20 @@
 
                     <h:panelGrid columns="1" style="justify-content: center; ">
                         <p:outputLabel for="@next" value="Nome"/>
-                        <p:inputText value="#{produtoControle.produto.nome}"
+                        <p:inputText value="#{produtoControle.product.nome}"
                                      size="40"
                                      required="true"
                                      requiredMessage="O nome é orbrigatório!"/>
 
                         <p:outputLabel for="@next" value="Descrição"/>
-                        <p:inputText value="#{produtoControle.produto.descricao}"
+                        <p:inputText value="#{produtoControle.product.descricao}"
                                      size="40"
                                      required="true"
                                      requiredMessage="A descrição é obrigatória!"/>
 
                         <h:outputLabel value="Valor:" for="valor"/>
                         <p:inputNumber id="valor"
-                                       value="#{produtoControle.produto.valor}"
+                                       value="#{produtoControle.product.valor}"
                                        symbol="R$"
                                        thousandSeparator="."
                                        decimalSeparator=","
@@ -43,7 +43,7 @@
 
                         <h:outputLabel value="Quantidade:" for="quantidade"/>
                         <p:inputNumber id="Quantidade"
-                                       value="#{produtoControle.produto.estoque}"
+                                       value="#{produtoControle.product.estoque}"
                                        thousandSeparator="."
                                        decimalSeparator=","
                                        required="true"

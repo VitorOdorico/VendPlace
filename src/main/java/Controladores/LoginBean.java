@@ -10,7 +10,7 @@ package Controladores;
  */
 
 
-import Entidades.Usuario;
+import Entities.Config.Usuario;
 import Facade.UsuarioFacade;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -18,6 +18,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import Utils.CriptografiaUtil;
+
 
 @ManagedBean
 @SessionScoped
@@ -30,32 +32,35 @@ public class LoginBean implements Serializable {
     @EJB
     private UsuarioFacade usuarioFacade;
 
-   public String login() {
-    Usuario usuario = usuarioFacade.buscarPorNomeUsuario(nomeUsuario);
+    public String login() {
+        Usuario usuario = usuarioFacade.buscarPorNomeUsuario(nomeUsuario);
 
-    if (usuario != null) {
-        System.out.println("Senha no banco: " + usuario.getSenha());
-        System.out.println("Senha fornecida: " + senha);
+        if (usuario != null) {
+            System.out.println("Hash no banco: " + usuario.getSenha());
+            System.out.println("Senha fornecida: " + senha);
 
-        if (usuario.getSenha().equals(senha)) {
-            usuarioAutenticado = usuario;
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
-            return "index?faces-redirect=true"; // Redireciona para a página principal
+            if (CriptografiaUtil.verificarSenha(senha, usuario.getSenha())) {
+                usuarioAutenticado = usuario;
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
+                return "index?faces-redirect=true";
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha incorreta", null));
+                return null;
+            }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha incorreta", null));
-            return null; // Permanece na página de login
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não encontrado", null));
+            return null;
         }
-    } else {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não encontrado", null));
-        return null; // Permanece na página de login
     }
-}
 
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "login?faces-redirect=true";
+        return "/login?faces-redirect=true";
     }
+
 
     // Getters e Setters
     public String getNomeUsuario() {

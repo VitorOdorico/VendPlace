@@ -1,6 +1,6 @@
 package Controladores;
 
-import Entidades.Cliente;
+import Entities.Cliente;
 import Facade.ClienteFacade;
 import java.io.Serializable;
 import java.util.List;
